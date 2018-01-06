@@ -1,0 +1,14 @@
+setHigh(trig_pin) #set the signal to start the reading
+sleep(0.01) #waits for 10 microsseconds
+setLow(trig_pin) #clear the trigger signal
+
+while( read(echo_pin) == Low )
+  start = gettime() #get the time when the reading starts
+
+while( read(echo_pin) == High )
+  end = gettime() #get the time when the reading ends
+
+sig_time = (end - start) / 2 #calculate the signal time. The time accounted includes the time the sound takes to travel from the sensor to the object and from the object back to the sensor. Because of this, the time has to be divided by 2.
+dist_in_cm = sig_time / 34029
+
+https://buildingelectronics.wordpress.com/2015/02/09/the-hc-sr04-distance-sensor-tutorial-for-raspberry-pi-and-arduino/
