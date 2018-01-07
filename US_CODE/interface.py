@@ -75,12 +75,12 @@ def rm_type_0():
 	print(" For all measurements please FIRST confirm the measurement then aim and wait 5 seconds.")
 	input("Hit enter to take the initiate the measurement")
 	time.sleep(2)
-	a = us.getUltraSonicDistance()
+	a = us.getUltrasonicDistance()
 	print(a + " cm")
 	print("Please turn 180 degrees and take another measurement")
 	input("Hit enter to take the initiate the measurement")
 	time.sleep(2)
-	b = getUltraSonicDistance()
+	b = getUltrasonicDistance()
 	print(b + " cm")
 	radius = (a + b + 2 * arm_length)/2
 
@@ -96,14 +96,14 @@ def rm_type_1():
 	print(" For all measurements please FIRST confirm the measurement then aim and wait 5 seconds. ")
 	input("Hit enter to take the initiate the measurement")
 	time.sleep(2)
-	a = us.getUltraSonicDistance()
+	a = us.getUltrasonicDistance()
 	print(a + " CM")
 	msr.append(a)
 	for i in range(4):	
 		print("Please turn right 90 degrees and take another measurement.")
 		input("Hit enter to take the initiate the measurement")
 		time.sleep(2)
-		b = us.getUltraSonicDistance()
+		b = us.getUltrasonicDistance()
 		print(b + " cm")
 		msr.append(b)
 		
