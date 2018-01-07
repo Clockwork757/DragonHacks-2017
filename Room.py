@@ -46,11 +46,11 @@ class Room():
 
 class Circle(Room):
     ''' Create a room of type circle '''
-    def __init__(self, r):
+    def __init__(self, r, name="Room"):
         ''' Takes one positional argument: radius '''
         #--- Initialize Superclass -------
         t = 0
-        Room.__init__(t)
+        Room.__init__(t,name)
         self.set_area(4*np.pi*(r**2))
 
         #--- Public ----------------------
@@ -68,10 +68,10 @@ class Circle(Room):
 		
 class Rectangle(Room):
     ''' Create a room of type rectangle '''
-    def __init__(self, w, l):
+    def __init__(self, w, l, name="Room"):
         #--- Initialize Superclass -------
         t = 1
-        Room.__init__(t)
+        Room.__init__(t,name)
         self.set_area(w*l)
         #---------------------------------
 
