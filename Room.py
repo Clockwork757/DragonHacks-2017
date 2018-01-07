@@ -8,19 +8,23 @@
 import numpy as np
 
 class Point:
-# Class to describe coord points
-        def __init__(self, x=0, y=0):
-                self.x = x
-                self.y = y
-	
-        def __str__(self):
-                return "({0}, {1})".format(self.x, self.y)
-		
-        def get_x(self):
-                return self.x
-		
-        def get_y(self):
-                return self.y 
+    ''' Return a cartesian coordinate point '''
+    def __init__(self, x=0, y=0):
+        self.x = x
+        self.y = y
+
+    def __str__(self):
+        ''' Return a string representation of the
+            coordinate point '''
+        return "({0}, {1})".format(self.x, self.y)
+
+    def get_x(self):
+        ''' Return the x coordinate '''
+        return self.x
+
+    def get_y(self):
+        ''' Return the y coordinate '''
+        return self.y 
 
 class Room():
     ''' Superclass for room types '''
@@ -29,6 +33,10 @@ class Room():
         self.type = t
         self.area = None
         #----------------------
+
+    def get_area(self):
+        ''' Return area of the room '''
+        return self.area
 
     def set_area(self, area):
         ''' Set room area '''
@@ -39,7 +47,7 @@ class Circle(Room):
     def __init__(self, r):
         ''' Takes one positional argument: radius '''
         #--- Initialize Superclass -------
-        t = 1
+        t = 0
         Room.__init__(t)
         self.set_area(4*np.pi*(r**2))
 
@@ -60,7 +68,7 @@ class Rectangle(Room):
     ''' Create a room of type rectangle '''
     def __init__(self, w, h):
         #--- Initialize Superclass -------
-        t = 0
+        t = 1
         Room.__init__(t)
         self.set_area(w*h)
         #---------------------------------
