@@ -27,7 +27,7 @@ class UltrasonicSensor():
           # set TRIG as low
           GPIO.output(self._trig, False)
           print("Waitng For Sensor To Settle")
-          time.sleep(2)
+          time.sleep(0.03)
 
           # set TRIG as high
           GPIO.output(self._trig, True)
