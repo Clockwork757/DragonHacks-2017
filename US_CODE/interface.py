@@ -80,7 +80,7 @@ def rm_type_0():
 	print("Please turn 180 degrees and take another measurement")
 	input("Hit enter to take the initiate the measurement")
 	time.sleep(2)
-	b = getUltrasonicDistance()
+	b = us.getUltrasonicDistance()
 	print(str(b) + " cm")
 	radius = (a + b + 2 * arm_length)/2
 
