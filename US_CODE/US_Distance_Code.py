@@ -1,39 +1,68 @@
-import RPi.GPIO as GPIO                    #Import GPIO library
-import time                                #Import time library
-GPIO.setmode(GPIO.BCM)                     #Set GPIO pin numbering 
+import time
+import numpy as np
+import RPi.GPIO as GPIO
 
-TRIG = 23                                  #Associate pin 23 to TRIG
-ECHO = 24                                  #Associate pin 24 to ECHO
-MAX_DISTANCE = 575                         #Maximum ultrasonic sensor distance
-MIN_DISTANCE = 2                           #Minimum ultrasonic sensor distance
-HALF_SPEED_OF_SOUND = 17150 
+class UltrasonicSensor():
+    def __init__(self, validity_thresh=7, trig=23, echo=24):
+        self._half_speed_of_sound = 17150           # half the speed of sound; used for distance calculation
+        self._num_measurements    = 5               # number of measurements to take for averaging
+        self._validity_thresh     = validity_thresh # distance (cm) comparison above which the measurement is invalid
+        self._max_distance        = 575             # the maximum distance the ultrasonic sensor can measure
+        self._min_distance        = 2               # the minimum distance the ultrasonic sensor can measure
+        self._trig                = trig            # trig GPIO pin number
+        self._echo                = echo            # echo GPIO pin number
 
-print "Distance measurement in progress"
+        # set GPIO config vals
+        GPIO.setmode(GPIO.BCM)       # set GPIO pin numbering 
+        GPIO.setup(trig, GPIO.OUT)   # set pin as GPIO out
+        GPIO.setup(echo, GPIO.IN)    # set pin as GPIO in
 
-GPIO.setup(TRIG,GPIO.OUT)                  #Set pin as GPIO out
-GPIO.setup(ECHO,GPIO.IN)                   #Set pin as GPIO in
+    def getUltrasonicDistance(self):
+        print("Distance measurement in progress")
 
-while True:
-  GPIO.output(TRIG, False)                 #Set TRIG as LOW
-  print "Waitng For Sensor To Settle"
-  time.sleep(2)                            #Delay of 2 seconds
+        # take distance measurement num_measurement
+        # times and store them in an array for averaging
+        distances = []
+        for i in range(5):
+          # set TRIG as low
+          GPIO.output(TRIG, False)
+          print("Waitng For Sensor To Settle")
+          time.sleep(2)
 
-  GPIO.output(TRIG, True)                  #Set TRIG as HIGH
-  time.sleep(0.00001)                      #Delay of 0.00001 seconds
-  GPIO.output(TRIG, False)                 #Set TRIG as LOW
+          # set TRIG as high
+          GPIO.output(TRIG, True)
+          time.sleep(0.00001)
 
-  while GPIO.input(ECHO)==0:               #Check whether the ECHO is LOW
-    pulse_start = time.time()              #Saves the last known time of LOW pulse
+          # set TRIG as low
+          GPIO.output(TRIG, False)
 
-  while GPIO.input(ECHO)==1:               #Check whether the ECHO is HIGH
-    pulse_end = time.time()                #Saves the last known time of HIGH pulse 
+          # check whether the ECHO is low
+          while GPIO.input(ECHO)==0:
+            # save last known time of low pulse
+            pulse_start = time.time()
 
-  pulse_duration = pulse_end - pulse_start #Get pulse duration to a variable
+          # check whether the ECHO is high
+          while GPIO.input(ECHO)==1:
+            # save last know time of high pulse
+            pulse_end = time.time()
 
-  distance = pulse_duration * HALF_SPEED_OF_SOUND           #Multiply pulse duration by 17150 to get distance
-  distance = round(distance, 2)            #Round to two decimal points
+          pulse_duration = pulse_end - pulse_start
 
-  if distance > MIN_DISTANCE and distance < MAX_DISTANCE:   #Check whether the distance is within range
-    print "Distance:",distance - 0.5,"cm"  #Print distance with 0.5 cm calibration
-  else:
-    print "Out Of Range"                   #display out of range
+          # multiply pulse duration by 17150 to get distance
+          distance = round(pulse_duration * HALF_SPEED_OF_SOUND, 2)
+
+          # validate the distance measurement before appending it
+          # to the list of other measurements
+          if distance > MIN_DISTANCE and distance < MAX_DISTANCE:
+            valid_distance = True
+            for d in distances:
+                if abs(distance - d) > VALIDITY_THRESH:
+                    valid_distance = False
+                    break
+
+            # if the distance is valid, add to list
+            if valid_distance:
+                distances.append(distance)
+
+        # return average of valid distance measurements
+        return np.mean(distances)
