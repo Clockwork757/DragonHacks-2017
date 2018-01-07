@@ -179,8 +179,9 @@ class DB():
 
 if __name__ == "__main__":
     db = DB()    
-    UID = db.add_user("Wei")
-    HIDs = db.get_HIDs(UID)
-    HID = HIDs[0]
-    FID = db.get_floor(HID, 1)
-    print(FID)
+    # UID = db.add_user("Wei")
+    # HIDs = db.get_HIDs(UID)
+    # HID = HIDs[0]
+    # FID = db.get_floor(HID, 1)
+    # print(FID)
+    print(db.check_level(2,1))
