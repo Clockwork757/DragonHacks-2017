@@ -15,6 +15,7 @@ from Room import Room, Circle, Rectangle
 
 def user():
 	global db
+	global arm_length
 	username = input("Please enter your username:\n")
 	
 	checkUser = db.check_user(username)
@@ -71,6 +72,7 @@ def room(FID):
 #grabs 2 data points using ultrasonic sensor and updates db table
 def rm_type_0():
 	global us
+	global arm_length
 	print("Please go to at or near the center of the room")
 	print(" For all measurements please FIRST confirm the measurement then aim and wait 5 seconds.")
 	input("Hit enter to take the initiate the measurement")
@@ -92,6 +94,7 @@ def rm_type_0():
 #grabs 4 data points using ultrasonic sensor and updates db table
 def rm_type_1():
 	global us
+	global arm_length
 	msr = []
 	print(" For all measurements please FIRST confirm the measurement then aim and wait 5 seconds. ")
 	input("Hit enter to take the initiate the measurement")
@@ -138,6 +141,7 @@ if __name__ == "__main__":
 	counter = 0
 	us = UltrasonicSensor()
 	db = DB()
+	arm_length = 0
 	main()
 
 
