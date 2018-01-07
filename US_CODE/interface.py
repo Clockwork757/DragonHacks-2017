@@ -70,6 +70,7 @@ def room(FID):
 #round room measuring tool
 #grabs 2 data points using ultrasonic sensor and updates db table
 def rm_type_0():
+	global us
 	print("Please go to at or near the center of the room")
 	print(" For all measurements please FIRST confirm the measurement then aim and wait 5 seconds.")
 	input("Hit enter to take the initiate the measurement")
@@ -90,6 +91,7 @@ def rm_type_0():
 # rectangular room measuring tool
 #grabs 4 data points using ultrasonic sensor and updates db table
 def rm_type_1():
+	global us
 	msr = []
 	print(" For all measurements please FIRST confirm the measurement then aim and wait 5 seconds. ")
 	input("Hit enter to take the initiate the measurement")
