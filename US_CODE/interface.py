@@ -41,7 +41,7 @@ def intial_rm(UID):
 		if i.lower() == "n":
 			HID = db.add_house(UID)
 		else:
-			HID = HIDs[i - 1]
+			HID = HIDs[int(i) - 1]
 	print("Basements are consider floor 0 and negative numbers for sub-basements and ground floor is equal to 1.")
 	level = input("Please enter the floor number you want to edit:\n")
 	
