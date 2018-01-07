@@ -102,7 +102,7 @@ def rm_type_1():
 	a = us.getUltrasonicDistance()
 	print(str(a) + " CM")
 	msr.append(a)
-	for i in range(4):	
+	for i in range(3):	
 		print("Please turn right 90 degrees and take another measurement.")
 		input("Hit enter to take the initiate the measurement")
 		time.sleep(2)
