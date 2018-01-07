@@ -33,6 +33,11 @@ class DB():
         self.execute(q, (username))
         return self.fetchone()[0]
         
+    def get_users(self):
+        q = """SELECT UID,username from Users"""
+        self.execute(q)
+        return self.fetchall()
+        
     def check_user(self, username):
         """
             Checks if a user exists based on username
@@ -41,7 +46,7 @@ class DB():
         users = self._clean_list(self._cur.fetchall())
         return username in users
         
-    def add_user(self, username, arm_length = None):
+    def add_user(self, username, arm_length=None):
         """
             Adds a user with a given username and arm length
             Automatically assigns and returns their UID
@@ -93,7 +98,6 @@ class DB():
         
         self.execute(q, (HID, level))
         return self.fetchone()[0] 
-    
     def get_HIDs(self, UID):
         """
             Returns a list of HIDS that a user owns
@@ -148,7 +152,7 @@ class DB():
             VALUES = (%s,%s,%s,"%s")"""
             
         TID = circle.type
-        radius = circle.radius
+        radius = float(circle.radius)
         name = circle.name
         
         self.insert(q, (TID, FID, radius, name))
@@ -158,8 +162,8 @@ class DB():
             VALUES = (%s,%s,%s,%s,"%s")"""
             
         TID = rectangle.type
-        length = rectangle.length
-        width = rectangle.length
+        length = float(rectangle.length)
+        width = float(rectangle.length)
         name = rectangle.name
         
         self.insert(q, (TID, FID, radius, name))
