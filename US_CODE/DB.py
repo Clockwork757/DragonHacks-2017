@@ -166,7 +166,7 @@ class DB():
         width = float(rectangle.length)
         name = rectangle.name
         
-        self.insert(q, (TID, FID, radius, name))
+        self.insert(q, (TID, FID, length, width, name))
         
     def _clean_list(self, bad_list):
         """
