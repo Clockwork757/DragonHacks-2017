@@ -122,7 +122,7 @@ def rm_type_1():
 def con(): 
 	q1 = input("Do you want to measure another room? (Y/N)")
 	if q1 == "Y" or "y" or "Yes" or "yes":
-		room_count()
+		room()
 	else:
 		q2 = input("Do you want to measure another building or floor? (Y/N)")
 		if q2 == "Y" or "y" or "Yes" or "yes":
