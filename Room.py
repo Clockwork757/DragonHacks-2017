@@ -1,8 +1,9 @@
 #========================================
 #Project Name: Room Type/Size
-#Project Description: Excersise 16.6 HW#1
 #Date:	04/15/2017
 #Programmer Name: Matthew Marschall 
+#Modified: 01/06/2018
+#Modifier: Dresden Feitzinger
 #========================================
 
 import numpy as np
@@ -28,10 +29,11 @@ class Point:
 
 class Room():
     ''' Superclass for room types '''
-    def __init__(self, t):
+    def __init__(self, t, name="Room"):
         #--- Public -----------
-        self.type = t
-        self.area = None
+        self.type = t    # type of room
+        self.name = name # name of room
+        self.area = None # area of room
         #----------------------
 
     def get_area(self):
@@ -66,26 +68,26 @@ class Circle(Room):
 		
 class Rectangle(Room):
     ''' Create a room of type rectangle '''
-    def __init__(self, w, h):
+    def __init__(self, w, l):
         #--- Initialize Superclass -------
         t = 1
         Room.__init__(t)
-        self.set_area(w*h)
+        self.set_area(w*l)
         #---------------------------------
 
         #--- Public ----------------------
-        self.width = w
-        self.height = h
+        self.length = l
+        self.width  = w
         #---------------------------------
 
     def get_width(self):
         ''' Return rectangle width in centimeters '''
         return self.width
 
-    def get_height(self):
+    def get_length(self):
         ''' Return rectangle height in centimeters '''
-        return self.height
+        return self.length
 
     def calc_perimeter(self):
         ''' Return rectangle perimeter in centimeters '''
-        return ((2 * self.width) + (2 * self.height))
+        return ((2 * self.width) + (2 * self.length))
