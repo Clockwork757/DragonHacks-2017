@@ -17,7 +17,7 @@ def user():
 	global db
 	username = input("Please enter your username:\n")
 	
-	checkUser = db.check_user()
+	checkUser = db.check_user(username)
 	if checkUser == False:
 		arm_length = input("Enter arm length from shoulder to wrist in centimeters:\n")
 		arm_length = int(arm_length)
