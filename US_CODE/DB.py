@@ -149,7 +149,7 @@ class DB():
             
     def _add_circle(self, circle, FID):
         q = """INSERT into Rooms(TID, FID, radius, name)
-            VALUES = (%s,%s,%s,"%s")"""
+            VALUES (%s,%s,%s,"%s")"""
             
         TID = circle.type
         radius = float(circle.radius)
@@ -159,7 +159,7 @@ class DB():
         
     def _add_rectangle(self, rectangle, HID, FID):
         q = """INSERT into Rooms(TID, FID, length, width, name)
-            VALUES = (%s,%s,%s,%s,"%s")"""
+            VALUES (%s,%s,%s,%s,"%s")"""
             
         TID = rectangle.type
         length = float(rectangle.length)
