@@ -49,7 +49,7 @@ def intial_rm(UID):
 	FID = db.add_floor(HID, level)
 
 	#room_count()
-	room(FID)
+	room(FID, UID)
 
 #creates a room counter
 #def room_count():
@@ -58,7 +58,7 @@ def intial_rm(UID):
 	#room()
 
 # declares room types
-def room(FID):
+def room(FID, UID):
 	rm_type = input("Please enter 0 for circular room or 1 for rectangular room:\n")
 	if rm_type == "0":
 		room = rm_type_0()
@@ -66,7 +66,7 @@ def room(FID):
 		room = rm_type_1()
 	db.add_room(room, FID)
 	
-	con(FID)
+	con(FID, UID)
 
 #round room measuring tool
 #grabs 2 data points using ultrasonic sensor and updates db table
@@ -119,14 +119,14 @@ def rm_type_1():
 	return rec
 
 #continuation sequence for rooms and new buildings/floors
-def con(FID): 
+def con(FID, UID): 
 	q1 = input("Do you want to measure another room? (Y/N)")
-	if q1 == "Y" or "y" or "Yes" or "yes":
-		room(FID)
+	if q1 == "Y" or q1 == "y" or q1 == "Yes" or q1 == "yes":
+		room(FID, UID)
 	else:
 		q2 = input("Do you want to measure another building or floor? (Y/N)")
-		if q2 == "Y" or "y" or "Yes" or "yes":
-			intial_rm()
+		if q2 == "Y" or q2 == "y" or q2 == "Yes" or q2 == "yes":
+			intial_rm(UID)
 		else:
 			print("Have a great day!")
 			exit()
