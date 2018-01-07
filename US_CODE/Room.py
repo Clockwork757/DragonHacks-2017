@@ -50,7 +50,7 @@ class Circle(Room):
         ''' Takes one positional argument: radius '''
         #--- Initialize Superclass -------
         t = 0
-        Room.__init__(t,name)
+        Room.__init__(self, t, name)
         self.set_area(4*np.pi*(r**2))
 
         #--- Public ----------------------
@@ -71,7 +71,7 @@ class Rectangle(Room):
     def __init__(self, w, l, name="Room"):
         #--- Initialize Superclass -------
         t = 1
-        Room.__init__(t,name)
+        Room.__init__(self, t, name)
         self.set_area(w*l)
         #---------------------------------
 
