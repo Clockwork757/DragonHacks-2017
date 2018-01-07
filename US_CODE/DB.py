@@ -157,7 +157,7 @@ class DB():
         
         self.insert(q, (TID, FID, radius, name))
         
-    def _add_rectangle(self, rectangle, HID, FID):
+    def _add_rectangle(self, rectangle, FID):
         q = """INSERT into Rooms(TID, FID, length, width, name)
             VALUES (%s,%s,%s,%s,"%s")"""
             
