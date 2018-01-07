@@ -38,7 +38,7 @@ def intial_rm(UID):
 		HID = db.add_house(UID)
 	else:
 		i = input("You have {} Buildings, select one or enter 'n' to create a new house:\n".format(len(HIDs)))
-		if i.lower() = "n":
+		if i.lower() == "n":
 			HID = db.add_house(UID)
 		else:
 			HID = HIDs[i - 1]
@@ -70,17 +70,17 @@ def room(FID):
 #round room measuring tool
 #grabs 2 data points using ultrasonic sensor and updates db table
 def rm_type_0():
-	print "Please go to at or near the center of the room"
-	print " For all measurements please FIRST confirm the measurement then aim and wait 5 seconds. "
+	print("Please go to at or near the center of the room")
+	print(" For all measurements please FIRST confirm the measurement then aim and wait 5 seconds.")
 	input("Hit enter to take the initiate the measurement")
 	time.sleep(2)
 	a = us.getUltraSonicDistance()
-	print a + " cm"
-	print "Please turn 180 degrees and take another measurement"
+	print(a + " cm")
+	print("Please turn 180 degrees and take another measurement")
 	input("Hit enter to take the initiate the measurement")
 	time.sleep(2)
 	b = getUltraSonicDistance()
-	print b + " cm"
+	print(b + " cm")
 	radius = (a + b + 2 * arm_length)/2
 
 	name = input("Please enter room name")
@@ -91,18 +91,18 @@ def rm_type_0():
 #grabs 4 data points using ultrasonic sensor and updates db table
 def rm_type_1():
 	msr = []
-	print " For all measurements please FIRST confirm the measurement then aim and wait 5 seconds. "
+	print(" For all measurements please FIRST confirm the measurement then aim and wait 5 seconds. ")
 	input("Hit enter to take the initiate the measurement")
 	time.sleep(2)
 	a = us.getUltraSonicDistance()
-	print a + " CM"
+	print(a + " CM")
 	msr.append(a)
 	for i in range(4):	
-		print "Please turn right 90 degrees and take another measurement"
+		print("Please turn right 90 degrees and take another measurement.")
 		input("Hit enter to take the initiate the measurement")
 		time.sleep(2)
 		b = us.getUltraSonicDistance()
-		print b + " cm"
+		print(b + " cm")
 		msr.append(b)
 		
 	length = msr[0] + msr[2] + 2 * arm_length
@@ -114,7 +114,7 @@ def rm_type_1():
 	return rec
 
 #continuation sequence for rooms and new buildings/floors
-def con() 
+def con(): 
 	q1 = input("Do you want to measure another room? (Y/N)")
 	if q1 == "Y" or "y" or "Yes" or "yes":
 		room_count()
@@ -123,12 +123,12 @@ def con()
 		if q2 == "Y" or "y" or "Yes" or "yes":
 			intial_rm()
 		else:
-			print "Have a great day!"
+			print("Have a great day!")
 			exit()
 
 #main function			
 def main():
-	print "Welcome to WristTape!"
+	print("Welcome to WristTape!")
 	user()
 
 #inits main	
