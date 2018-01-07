@@ -23,7 +23,7 @@ def user():
 		arm_length = int(arm_length)
 		UID = db.add_user(username, arm_length)
 	else:
-		UID = db.add_UID(username)
+		UID = db.add_user(username)
 		
 	intial_rm(UID)
 
