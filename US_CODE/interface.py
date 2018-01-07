@@ -37,7 +37,7 @@ def intial_rm(UID):
 	if not HIDs:
 		HID = db.add_house(UID)
 	else:
-		i = input("You have {} Buildings, select one or enter "n" to create a new house:\n".format(len(HIDs)))
+		i = input("You have {} Buildings, select one or enter 'n' to create a new house:\n".format(len(HIDs)))
 		if i.lower() = "n":
 			HID = db.add_house(UID)
 		else:
