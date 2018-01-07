@@ -121,11 +121,11 @@ def rm_type_1():
 #continuation sequence for rooms and new buildings/floors
 def con(FID): 
 	q1 = input("Do you want to measure another room? (Y/N)")
-	if q1 == "Y" or "y" or "Yes" or "yes":
+	if q1 == "Y" or q1 == "y" or q1 == "Yes" or q1 == "yes":
 		room(FID)
 	else:
 		q2 = input("Do you want to measure another building or floor? (Y/N)")
-		if q2 == "Y" or "y" or "Yes" or "yes":
+		if q2 == "Y" or q2 == "y" or q2 == "Yes" or q2 == "yes":
 			intial_rm()
 		else:
 			print("Have a great day!")
