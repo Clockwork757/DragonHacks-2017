@@ -66,7 +66,7 @@ def room(FID):
 		room = rm_type_1()
 	db.add_room(room, FID)
 	
-	con()
+	con(FID)
 
 #round room measuring tool
 #grabs 2 data points using ultrasonic sensor and updates db table
@@ -119,7 +119,7 @@ def rm_type_1():
 	return rec
 
 #continuation sequence for rooms and new buildings/floors
-def con(): 
+def con(FID): 
 	q1 = input("Do you want to measure another room? (Y/N)")
 	if q1 == "Y" or "y" or "Yes" or "yes":
 		room(FID)
