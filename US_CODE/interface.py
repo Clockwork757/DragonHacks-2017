@@ -8,47 +8,64 @@
 import time
 from UltrasonicSensor import UltrasonicSensor
 from DB import DB
+from Room import Room, Circle, Rectangle
 
 #User validation
 #Creates new DB User
 
 def user():
-	username = input("Please enter your username")
+	global db
+	username = input("Please enter your username:\n")
 	
-	checkUser = db.checkUser()
+	checkUser = db.check_user()
 	if checkUser == False:
-		#	insert username into database
-			arm_length = input("Enter arm length from shoulder to wrist in centimeters:")
-		#	insert arm_length into databasee
-		intial_rm()
+		arm_length = input("Enter arm length from shoulder to wrist in centimeters:\n")
+		arm_length = int(arm_length)
+		UID = db.add_user(username, arm_length)
 	else:
-		intial_rm()
+		UID = db.add_UID(username)
+		
+	intial_rm(UID)
 
 #resets global counter to zero
 #establishes bldg and floor and updates db
-def intial_rm():
-	global counter
-	counter = 0
-	bldg = input("Please enter the building number")
-	# insert bldg # into DB
-	print "Basements are consider floor 0 and negative numbers for sub-basements and ground floor is equal to 1."
-	floor = input("Please enter the floor number")
-	#insert floor# into DB
-	room_count()
+def intial_rm(UID):
+	global db
+	#global counter
+	#counter = 0
+	HIDs = db.get_HIDs(UID)
+	if not HIDs:
+		HID = db.add_house(UID)
+	else:
+		i = input("You have {} Buildings, select one or enter "n" to create a new house:\n".format(len(HIDs)))
+		if i.lower() = "n":
+			HID = db.add_house(UID)
+		else:
+			HID = HIDs[i - 1]
+	print("Basements are consider floor 0 and negative numbers for sub-basements and ground floor is equal to 1.")
+	level = input("Please enter the floor number you want to edit:\n")
+	
+	FID = db.add_floor(HID, level)
+
+	#room_count()
+	room(FID)
 
 #creates a room counter
-def room_count():
-	global counter 
-	counter += 1
-	room()
+#def room_count():
+	#global counter 
+	#counter += 1
+	#room()
 
 # declares room types
-def room():
-	rm_type = input("Please enter 0 for circular room or 1 for rectangular room")
+def room(FID):
+	rm_type = input("Please enter 0 for circular room or 1 for rectangular room:\n")
 	if rm_type == "0":
-		rm_type_0()
+		room = rm_type_0()
 	else:
-		rm_type_1()
+		room = rm_type_1()
+	db.add_room(room, FID)
+	
+	con()
 
 #round room measuring tool
 #grabs 2 data points using ultrasonic sensor and updates db table
@@ -66,23 +83,23 @@ def rm_type_0():
 	print b + " cm"
 	radius = (a + b + 2 * arm_length)/2
 
-	#input sequel code for saving data
-
-	con()
+	name = input("Please enter room name")
+	circ = Circle(radius, name)
+	return circ
 			
 # rectangular room measuring tool
 #grabs 4 data points using ultrasonic sensor and updates db table
 def rm_type_1():
 	msr = []
 	print " For all measurements please FIRST confirm the measurement then aim and wait 5 seconds. "
-	input("Hit enter to take the intiate the measurement")
+	input("Hit enter to take the initiate the measurement")
 	time.sleep(2)
 	a = us.getUltraSonicDistance()
 	print a + " CM"
 	msr.append(a)
 	for i in range(4):	
 		print "Please turn right 90 degrees and take another measurement"
-		input("Hit enter to take the intiate the measurement")
+		input("Hit enter to take the initiate the measurement")
 		time.sleep(2)
 		b = us.getUltraSonicDistance()
 		print b + " cm"
@@ -90,10 +107,11 @@ def rm_type_1():
 		
 	length = msr[0] + msr[2] + 2 * arm_length
 	width = msr[1] + msr[3] + 2 * arm_length
-
-	#input data into DB sql cmd
-		
-	con()
+	
+	name = input("Please enter room name")
+	
+	rec = Rectangle(width, length, name)
+	return rec
 
 #continuation sequence for rooms and new buildings/floors
 def con() 
